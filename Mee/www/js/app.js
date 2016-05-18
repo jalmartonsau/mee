@@ -30,32 +30,37 @@ angular.module('calculator', ['ionic', 'calculator.controllers', 'calculator.ser
     $stateProvider
 
       // setup an abstract state for the tabs directive
-      .state('tab', {
-          url: "/tab",
-          abstract: true,
-          templateUrl: "templates/tabs.html"
-      })
-      .state('tab.main', {
-          url: '/main',
-          views: {
-              'tab-main': {
-                  templateUrl: 'templates/main.html',
-                  controller: 'MainCtrl'
-              }
-          }
-      })
-      .state('tab.history', {
-          url: '/history',
-          views: {
-              'tab-history': {
-                  templateUrl: 'templates/history.html',
-                  controller: 'HistoryCtrl'
-              }
-          }
-      })
+        .state('tab', {
+            url: "/tab",
+            abstract: true,
+            templateUrl: "templates/tabs.html"
+        })
+        .state('login', {
+            url: '/login',
+            templateUrl: 'templates/login.html',
+            controller: 'LoginCtrl'
+        })
+        .state('tab.main', {
+            url: '/main',
+            views: {
+                'tab-main': {
+                    templateUrl: 'templates/main.html',
+                    controller: 'MainCtrl'
+                }
+            }
+        })
+        .state('tab.history', {
+            url: '/history',
+            views: {
+                'tab-history': {
+                    templateUrl: 'templates/history.html',
+                    controller: 'HistoryCtrl'
+                }
+            }
+        })
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/tab/main');
+    $urlRouterProvider.otherwise('/login');
 
 });
 

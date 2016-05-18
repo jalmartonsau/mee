@@ -49,3 +49,10 @@ angular.module('calculator.controllers', [])
 .controller('HistoryCtrl', ['$scope', 'History', function ($scope, History) {
     $scope.calculations = History.all();
 }])
+.controller('LoginCtrl', function ($scope) {
+    $scope.data = {};
+
+    $scope.login = function () {
+        console.log("LOGIN user: " + $scope.data.username + " - PW: " + $scope.data.password);
+    }
+})
