@@ -18,7 +18,11 @@ angular.module('calculator', ['ionic', 'calculator.controllers', 'calculator.ser
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
+        Game.init();
     });
+
+
+
 })
 
 .config(function ($stateProvider, $urlRouterProvider) {
@@ -64,3 +68,17 @@ angular.module('calculator', ['ionic', 'calculator.controllers', 'calculator.ser
 
 });
 
+var Game = {
+    host: "http://tonsau.eu:45032",
+    socket: null,
+    init: function () {
+        Game.socket = io.connect(this.host);
+
+        if (Game.socket === null)
+            return;
+
+        
+
+
+    }
+};
