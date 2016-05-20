@@ -49,10 +49,20 @@ angular.module('calculator.controllers', [])
 .controller('HistoryCtrl', ['$scope', 'History', function ($scope, History) {
     $scope.calculations = History.all();
 }])
-.controller('LoginCtrl', function ($scope) {
+.controller('LoginCtrl', function ($scope, $state) {
     $scope.data = {};
+    console.log("I was triggered on load");
 
     $scope.login = function () {
-        console.log("LOGIN user: " + $scope.data.username + " - PW: " + $scope.data.password);
+        User.email = $scope.data.email;
+        User.password = $scope.data.password;
+        Game.authUser(User); // Authenticates user
+        if(User.loggedIn)
+            $state.go('tab.main');
+    }
+    $scope.fblogin = function () {
+        Game.authFbUser();
+        if (User.loggedIn)
+            $state.go('tab.main');
     }
 })

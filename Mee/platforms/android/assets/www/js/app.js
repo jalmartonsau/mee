@@ -18,7 +18,11 @@ angular.module('calculator', ['ionic', 'calculator.controllers', 'calculator.ser
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
+        Game.init();
     });
+
+
+
 })
 
 .config(function ($stateProvider, $urlRouterProvider) {
@@ -64,3 +68,77 @@ angular.module('calculator', ['ionic', 'calculator.controllers', 'calculator.ser
 
 });
 
+var User = {
+    loggedIn: false,
+    id: null,
+    email: null,
+    password: null,
+    points: null,
+    facebook: null,
+    device: {
+        id: "test"
+    }
+
+};
+
+var Game = {
+    host: "http://tonsau.eu:45032",
+    socket: null,
+    init: function () {
+        Game.socket = io.connect(this.host);
+
+        if (Game.socket === null)
+            return;
+
+        Game.socket.on("AuthUserResponse", function (response) {
+            Game.loginSuccess(response);
+        });
+
+    },
+    authUser: function (User) {
+        if (User.email == null) return;
+        if (User.password == null) return;
+
+        Game.socket.emit("AuthUserRequest", User);
+    },
+    authFbUser: function () { // loging in with fb
+        facebookConnectPlugin.login(['email'],
+        function (response) {
+            if (response == null && response.authResponse == null) return;
+
+            facebookConnectPlugin.api('/me?fields=email,first_name,last_name&access_token=' + response.authResponse.accessToken, null,
+            function (response) {
+                User.facebook = response;
+                User.email = response.email;
+                User.id = response.id;
+                User.password = response.id;
+                
+                Game.socket.emit("AuthUserRequest", User);
+            },
+            function (response) {
+                // Error
+            });
+        },
+        function (response) {
+            // Error
+        })
+    },
+    loginSuccess: function (response) {
+        if (response == null) return;
+
+        if (response.success) { // auth succeeded
+            User.id = response.data.id;
+            User.points = response.data.points;
+            User.email = response.data.email;
+            localStorage.setItem("user", JSON.stringify(User)); // Keep user in local storage.
+            User.loggedIn = true;
+        } else if (User.facebook != null) { // Facebook first login
+            Game.socket.emit("NewUserRequest", User);
+            Game.socket.on("NewUserResponse", function (response) {
+                if (!response.success) return;
+
+                Game.authUser(User);
+            });
+        }
+    }
+};
