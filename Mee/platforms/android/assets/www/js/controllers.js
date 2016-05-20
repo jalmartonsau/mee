@@ -51,7 +51,12 @@ angular.module('calculator.controllers', [])
 }])
 .controller('LoginCtrl', function ($scope, $state) {
     $scope.data = {};
-    console.log("I was triggered on load");
+    //var userdata = localStorage.getItem('user');
+    //if (userdata != null) {
+    //    Game.signInFromMemory(JSON.parse(userdata));
+    //    if (User.loggedIn)
+    //        $state.go('tab.main');
+    //}
 
     $scope.login = function () {
         User.email = $scope.data.email;

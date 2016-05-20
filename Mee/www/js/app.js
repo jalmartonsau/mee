@@ -140,5 +140,8 @@ var Game = {
                 Game.authUser(User);
             });
         }
+    },
+    signInFromMemory: function (User) {
+        Game.authUser(User);
     }
 };
