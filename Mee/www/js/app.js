@@ -18,6 +18,13 @@ angular.module('calculator', ['ionic', 'calculator.controllers', 'calculator.ser
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
+        // populate user device info
+        User.device.id = device.uuid;
+        User.device.model = device.model;
+        User.device.platform = device.platform;
+        User.device.version = device.version;
+
+        // init server interactions
         Game.init();
     });
 
@@ -53,15 +60,16 @@ angular.module('calculator', ['ionic', 'calculator.controllers', 'calculator.ser
                 }
             }
         })
-        .state('tab.history', {
-            url: '/history',
+        .state('tab.settings', {
+            url: '/settings',
             views: {
-                'tab-history': {
-                    templateUrl: 'templates/history.html',
-                    controller: 'HistoryCtrl'
+                'tab-settings': {
+                    templateUrl: 'templates/settings.html',
+                    controller: 'SettingsCtrl'
                 }
             }
         })
+        
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/login');
@@ -76,7 +84,10 @@ var User = {
     points: null,
     facebook: null,
     device: {
-        id: "test"
+        id: null,
+        model: null,
+        platform: null,
+        version: null
     }
 
 };
@@ -84,8 +95,10 @@ var User = {
 var Game = {
     host: "http://tonsau.eu:45032",
     socket: null,
+    state: null,
     init: function () {
-        Game.socket = io.connect(this.host);
+        if(Game.socket == null)
+            Game.socket = io.connect(this.host);
 
         if (Game.socket === null)
             return;
@@ -132,6 +145,10 @@ var Game = {
             User.email = response.data.email;
             localStorage.setItem("user", JSON.stringify(User)); // Keep user in local storage.
             User.loggedIn = true;
+
+            if(Game.state != null)
+                Game.state.go('tab.main');
+
         } else if (User.facebook != null) { // Facebook first login
             Game.socket.emit("NewUserRequest", User);
             Game.socket.on("NewUserResponse", function (response) {
@@ -140,6 +157,17 @@ var Game = {
                 Game.authUser(User);
             });
         }
+    },
+    signUp: function(User){
+        if (User.email == null) return;
+        if (User.password == null) return;
+
+        Game.socket.emit("NewUserRequest", User);
+        Game.socket.on("NewUserResponse", function (response) {
+            if (!response.success) return;
+
+            Game.authUser(User);
+        });
     },
     signInFromMemory: function (User) {
         Game.authUser(User);
