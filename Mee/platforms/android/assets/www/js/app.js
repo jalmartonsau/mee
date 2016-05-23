@@ -51,6 +51,11 @@ angular.module('calculator', ['ionic', 'calculator.controllers', 'calculator.ser
             templateUrl: 'templates/login.html',
             controller: 'LoginCtrl'
         })
+        .state('game', {
+            url: '/game',
+            templateUrl: 'templates/game.html',
+            controller: 'GameCtrl'
+        })
         .state('tab.main', {
             url: '/main',
             views: {
@@ -82,6 +87,7 @@ var User = {
     email: null,
     password: null,
     points: null,
+    room: null,
     facebook: null,
     device: {
         id: null,
@@ -96,6 +102,7 @@ var Game = {
     host: "http://tonsau.eu:45032",
     socket: null,
     state: null,
+    buttons: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", ""], // leave empty if spacer
     init: function () {
         if(Game.socket == null)
             Game.socket = io.connect(this.host);
@@ -105,6 +112,14 @@ var Game = {
 
         Game.socket.on("AuthUserResponse", function (response) {
             Game.loginSuccess(response);
+        });
+        Game.socket.on("ChallengeResponse", function (response) {
+            console.log(response.equation);
+        });
+        Game.socket.on("JoinGameResponse", function (response) {
+            if (Game.state != null)
+                Game.state.go('game');
+            
         });
 
     },
@@ -171,5 +186,8 @@ var Game = {
     },
     signInFromMemory: function (User) {
         Game.authUser(User);
+    },
+    join: function () {
+        Game.socket.emit("JoinGameRequest", User);
     }
 };

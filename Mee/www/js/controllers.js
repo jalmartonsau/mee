@@ -2,8 +2,16 @@ angular.module('calculator.controllers', [])
 
 .controller('MainCtrl', function ($scope, $state) {
     $scope.user = User;
+    Game.state = $state;
+    $scope.join = function () {
+        Game.join();
+    }
+
 })
 .controller('SettingsCtrl', function ($scope, $state) {
+
+})
+.controller('GameCtrl', function ($scope, $state) {
 
 })
 .controller('LoginCtrl', function ($scope, $state) {
@@ -12,9 +20,11 @@ angular.module('calculator.controllers', [])
     Game.state = $state;
     if (Game.socket == null) Game.init(); 
 
-    var ruser = localStorage.getItem('user');
-    if (ruser != null)
-        Game.signInFromMemory(JSON.parse(ruser));
+    $scope.loadUser = function () {
+        var ruser = localStorage.getItem('user');
+        if (ruser != null)
+            Game.signInFromMemory(JSON.parse(ruser));
+    }
 
     $scope.login = function () {
         User.email = $scope.data.email;
