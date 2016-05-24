@@ -102,7 +102,6 @@ var Game = {
     host: "http://tonsau.eu:45032",
     socket: null,
     state: null,
-    buttons: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", ""], // leave empty if spacer
     init: function () {
         if(Game.socket == null)
             Game.socket = io.connect(this.host);

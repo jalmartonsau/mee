@@ -12,7 +12,7 @@ angular.module('calculator.controllers', [])
 
 })
 .controller('GameCtrl', function ($scope, $state) {
-
+    $scope.game = {equation: "2+1"};
 })
 .controller('LoginCtrl', function ($scope, $state) {
     $scope.data = {};

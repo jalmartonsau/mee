@@ -1,3 +1,35 @@
 ﻿<ion-view view-title="Game" name="game-view">
-    game
+    <div class="bar bar-balanced bar-large">
+        <h1 class="title">{{game.equation}}</h1>
+    </div>
+    <ion-content class="tab-content">
+        <div class="row">
+            <input type="text" placeholder="Answer">
+        </div>
+        <div class="row">
+            <button class="button button-positive col">1</button>
+            <button class="button button-positive col">2</button>
+            <button class="button button-positive col">3</button>
+        </div>
+        <div class="row">
+            <button class="button button-positive col">4</button>
+            <button class="button button-positive col">5</button>
+            <button class="button button-positive col">6</button>
+        </div>
+        <div class="row">
+            <button class="button button-positive col">7</button>
+            <button class="button button-positive col">8</button>
+            <button class="button button-positive col">9</button>
+        </div>
+        <div class="row">
+            <button class="button button-positive col" ng-disabled="checked"></button>
+            <button class="button button-positive col">0</button>
+            <button class="button button-positive col" ng-disabled="checked"></button>
+        </div>
+        <div class="row">
+            <button class="button button-block button-large button-positive">Submit</button>
+        </div>
+        
+    </ion-content>
+    
 </ion-view>
