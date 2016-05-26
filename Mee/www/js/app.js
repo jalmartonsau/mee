@@ -102,6 +102,8 @@ var Game = {
     host: "http://tonsau.eu:45032",
     socket: null,
     state: null,
+    scope: null,
+    challenge: null,
     init: function () {
         if(Game.socket == null)
             Game.socket = io.connect(this.host);
@@ -113,12 +115,15 @@ var Game = {
             Game.loginSuccess(response);
         });
         Game.socket.on("ChallengeResponse", function (response) {
-            console.log(response.equation);
+            Game.loadChallenge(response);
         });
         Game.socket.on("JoinGameResponse", function (response) {
             if (Game.state != null)
                 Game.state.go('game');
             
+        });
+        Game.socket.on("ChangePointsResponse", function (response) {
+            console.log(JSON.stringify(response));
         });
 
     },
@@ -188,5 +193,19 @@ var Game = {
     },
     join: function () {
         Game.socket.emit("JoinGameRequest", User);
+    },
+    loadChallenge: function (challenge) {
+        if (Game.scope == null) return;
+        if (Game.state == null) return;
+
+        Game.challenge = challenge;
+        Game.scope.game = challenge;
+    },
+    changePoints: function (amount) {
+        var Data = {
+            amount: amount,
+            User: User
+        };
+        Game.socket.emit("ChangePointsRequest", Data);
     }
 };

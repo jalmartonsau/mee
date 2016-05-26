@@ -12,7 +12,22 @@ angular.module('calculator.controllers', [])
 
 })
 .controller('GameCtrl', function ($scope, $state) {
-    $scope.game = {equation: "2+1"};
+    Game.state = $state;
+    Game.scope = $scope;
+    $scope.uAnswer = "";
+    $scope.add = function (number) {
+        $scope.uAnswer += number.toString();
+    }
+    $scope.submit = function () {
+        var userAnswer = parseInt($scope.uAnswer);
+        if (userAnswer === Game.challenge.answer) {
+            // Right answer
+        } else {
+            // Wrong answer
+            Game.changePoints(-5);
+        }
+    }
+
 })
 .controller('LoginCtrl', function ($scope, $state) {
     $scope.data = {};
