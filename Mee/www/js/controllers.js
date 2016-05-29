@@ -22,9 +22,12 @@ angular.module('calculator.controllers', [])
         var userAnswer = parseInt($scope.uAnswer);
         if (userAnswer === Game.challenge.answer) {
             // Right answer
+            Game.scope = $scope;
+            Game.winRequest();//Checks if user won
         } else {
             // Wrong answer
-            Game.changePoints(-5);
+            Game.scope = $scope;
+            Game.changePoints(-1);
         }
     }
 

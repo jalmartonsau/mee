@@ -118,9 +118,16 @@ var Game = {
             Game.loadChallenge(response);
         });
         Game.socket.on("JoinGameResponse", function (response) {
-            if (Game.state != null)
-                Game.state.go('game');
-            
+            if (response === null) return;
+            if (response.success) {
+                User.room = response.data;
+
+                if (Game.state != null)
+                    Game.state.go('game');
+            }
+        });
+        Game.socket.on("WinResponse", function (response) {
+            console.log(JSON.stringify(response));
         });
         Game.socket.on("ChangePointsResponse", function (response) {
             console.log(JSON.stringify(response));
@@ -199,6 +206,7 @@ var Game = {
         if (Game.state == null) return;
 
         Game.challenge = challenge;
+        Game.scope.uAnswer = "";
         Game.scope.game = challenge;
     },
     changePoints: function (amount) {
@@ -207,5 +215,12 @@ var Game = {
             User: User
         };
         Game.socket.emit("ChangePointsRequest", Data);
+    },
+    winRequest: function () {
+        var Data = {
+            User: User,
+            Challenge: Game.challenge
+        };
+        Game.socket.emit("WinRequest", Data);
     }
 };
