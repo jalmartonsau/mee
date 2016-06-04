@@ -208,6 +208,8 @@ var Game = {
         Game.challenge = challenge;
         Game.scope.uAnswer = "";
         Game.scope.game = challenge;
+        if (Game.state != null)
+            Game.state.go('game');
     },
     changePoints: function (amount) {
         var Data = {
