@@ -26,6 +26,7 @@ angular.module('calculator.controllers', [])
             Game.winRequest();//Checks if user won
         } else {
             // Wrong answer
+            $scope.uAnswer = "";
             Game.scope = $scope;
             Game.changePoints(-1);
         }
