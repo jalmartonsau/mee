@@ -18,6 +18,13 @@ angular.module('calculator.controllers', [])
     $scope.add = function (number) {
         $scope.uAnswer += number.toString();
     }
+    $scope.del = function () {
+        $scope.uAnswer = $scope.uAnswer.slice(0, -1);
+    }
+    $scope.neg = function () {
+        if($scope.uAnswer.length > 0)
+            $scope.uAnswer = parseInt($scope.uAnswer) * (-1);
+    }
     $scope.submit = function () {
         var userAnswer = parseInt($scope.uAnswer);
         if (userAnswer === Game.challenge.answer) {
