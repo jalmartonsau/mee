@@ -1,0 +1,10 @@
+.tabs-top > .tabs, .tabs.tabs-top {
+    top: 0 !important;
+}
+
+.has-tabs-top {
+    top: 54px !important;
+}
+.tab-content {
+    top: 54px;
+}

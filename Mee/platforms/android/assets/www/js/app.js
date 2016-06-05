@@ -98,6 +98,7 @@ var User = {
 
 };
 
+
 var Game = {
     host: "http://tonsau.eu:45032",
     socket: null,
