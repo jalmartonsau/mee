@@ -9,7 +9,7 @@ angular.module('calculator.controllers', [])
 
 })
 .controller('SettingsCtrl', function ($scope, $state) {
-
+    $scope.user = User;
 })
 .controller('GameCtrl', function ($scope, $state) {
     Game.state = $state;

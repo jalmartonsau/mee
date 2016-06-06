@@ -1,35 +1,44 @@
 ﻿<ion-view view-title="Game" name="game-view">
-    <div class="bar bar-balanced bar-large">
-        <h1 class="title h1">{{game.equation}}</h1>
-    </div>
-    <ion-content class="tab-content">
-        <div class="row">
-            <input type="number" placeholder="Answer" value="{{uAnswer}}" disabled>
+           
+        <div class="bar bar-balanced bar-large">
+            <h1 class="title h1">{{game.equation}}</h1>
         </div>
-        <div class="row">
-            <button class="button button-positive col" ng-click="add(1)" >1</button>
-            <button class="button button-positive col" ng-click="add(2)" >2</button>
-            <button class="button button-positive col" ng-click="add(3)" >3</button>
-        </div>
-        <div class="row">
-            <button class="button button-positive col" ng-click="add(4)" >4</button>
-            <button class="button button-positive col" ng-click="add(5)" >5</button>
-            <button class="button button-positive col" ng-click="add(6)" >6</button>
-        </div>
-        <div class="row">
-            <button class="button button-positive col" ng-click="add(7)" >7</button>
-            <button class="button button-positive col" ng-click="add(8)" >8</button>
-            <button class="button button-positive col" ng-click="add(9)" >9</button>
-        </div>
-        <div class="row">
-            <button class="button button-positive col" ng-click="neg()">-</button>
-            <button class="button button-positive col" ng-click="add(0)" >0</button>
-            <button class="button button-positive col" ng-click="del()">del</button>
-        </div>
-        <div class="row">
-            <button class="button button-block button-large button-positive" ng-click="submit()">Submit</button>
-        </div>
-        
-    </ion-content>
-    
+        <ion-content class="tab-content">
+
+                <div class="row">
+                    <input type="number" placeholder="Answer" value="{{uAnswer}}" disabled>
+                </div>
+                <div class="row">
+                    <button class="button button-positive col" ng-click="add(1)">1</button>
+                    <button class="button button-positive col" ng-click="add(2)">2</button>
+                    <button class="button button-positive col" ng-click="add(3)">3</button>
+                </div>
+                <div class="row">
+                    <button class="button button-positive col" ng-click="add(4)">4</button>
+                    <button class="button button-positive col" ng-click="add(5)">5</button>
+                    <button class="button button-positive col" ng-click="add(6)">6</button>
+                </div>
+                <div class="row">
+                    <button class="button button-positive col" ng-click="add(7)">7</button>
+                    <button class="button button-positive col" ng-click="add(8)">8</button>
+                    <button class="button button-positive col" ng-click="add(9)">9</button>
+                </div>
+                <div class="row">
+                    <button class="button button-positive col" ng-click="neg()">-</button>
+                    <button class="button button-positive col" ng-click="add(0)">0</button>
+                    <button class="button button-positive col" ng-click="del()">del</button>
+                </div>
+                <div class="row">
+                    <button class="button button-block button-large button-positive" ng-click="submit()">Submit</button>
+                </div>
+            <div class="item">
+                <h2>Rating (you): 1700</h2>
+                <p>Score: 1</p>
+            </div>
+            <div class="item">
+                <h2>Rating (opponent): 1800 </h2>
+                <p>Score: 2</p>
+            </div>      
+</ion-content>
+
 </ion-view>

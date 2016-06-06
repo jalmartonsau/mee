@@ -90,7 +90,7 @@ var User = {
     totalgames: 2,
     winpercentage: 10,
     winstreak: 2,
-    rank:1,
+    rank:null,
     room: null,
     facebook: null,
     device: {
@@ -174,6 +174,7 @@ var Game = {
             User.id = response.data.id;
             User.points = response.data.points;
             User.email = response.data.email;
+            User.rank = response.data.rank;
             localStorage.setItem("user", JSON.stringify(User)); // Keep user in local storage.
             User.loggedIn = true;
 
