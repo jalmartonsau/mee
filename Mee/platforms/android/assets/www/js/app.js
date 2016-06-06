@@ -44,7 +44,8 @@ angular.module('calculator', ['ionic', 'calculator.controllers', 'calculator.ser
         .state('tab', {
             url: "/tab",
             abstract: true,
-            templateUrl: "templates/tabs.html"
+            templateUrl: "templates/tabs.html",
+            controller: 'TabCtrl'
         })
         .state('login', {
             url: '/login',
@@ -87,7 +88,7 @@ var User = {
     email: null,
     password: null,
     points: null,
-    totalgames: 2,
+    totalgames: null,
     winpercentage: 10,
     winstreak: 2,
     rank:null,
@@ -137,6 +138,9 @@ var Game = {
         Game.socket.on("ChangePointsResponse", function (response) {
             console.log(JSON.stringify(response));
         });
+        Game.socket.on("OpponentLeft", function (response) {
+            Game.state.go('tab.main');
+        });
 
     },
     authUser: function (User) {
@@ -174,7 +178,19 @@ var Game = {
             User.id = response.data.id;
             User.points = response.data.points;
             User.email = response.data.email;
-            User.rank = response.data.rank;
+            if (response.data.totalgames != null) {
+                User.totalgames = response.data.totalgames;
+            }
+            else {
+                User.totalgames = 0;
+            }
+            if (response.data.rank != null) {
+                User.rank = response.data.rank;
+            }
+            else {
+                User.rank = "n/a";
+            }
+            
             localStorage.setItem("user", JSON.stringify(User)); // Keep user in local storage.
             User.loggedIn = true;
 
@@ -230,5 +246,9 @@ var Game = {
             Challenge: Game.challenge
         };
         Game.socket.emit("WinRequest", Data);
+    },
+    leaveRequest: function () {
+        Game.socket.emit("LeaveRequest", User);
+        User.room = null;
     }
 };

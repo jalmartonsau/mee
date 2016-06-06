@@ -8,6 +8,9 @@ angular.module('calculator.controllers', [])
     }
 
 })
+.controller('TabCtrl', function ($scope, $state) {
+
+})
 .controller('SettingsCtrl', function ($scope, $state) {
     $scope.user = User;
 })
@@ -15,6 +18,7 @@ angular.module('calculator.controllers', [])
     Game.state = $state;
     Game.scope = $scope;
     $scope.uAnswer = "";
+    $scope.room = User.room;
     $scope.add = function (number) {
         $scope.uAnswer += number.toString();
     }
@@ -38,6 +42,10 @@ angular.module('calculator.controllers', [])
             Game.changePoints(-1);
         }
     }
+    $scope.$on('$stateChangeStart', function () {
+        if (User.room != null && User.room.id != null)
+            Game.leaveRequest();
+    });
 
 })
 .controller('LoginCtrl', function ($scope, $state) {
@@ -48,7 +56,6 @@ angular.module('calculator.controllers', [])
 
     $scope.loadUser = function () {
         var ruser = localStorage.getItem('user');
-        if (ruser != null)
             Game.signInFromMemory(JSON.parse(ruser));
     }
 

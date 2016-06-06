@@ -18,6 +18,7 @@ angular.module('calculator.controllers', [])
     Game.state = $state;
     Game.scope = $scope;
     $scope.uAnswer = "";
+    $scope.room = User.room;
     $scope.add = function (number) {
         $scope.uAnswer += number.toString();
     }
