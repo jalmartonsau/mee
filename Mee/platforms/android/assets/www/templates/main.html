@@ -3,9 +3,30 @@
     <button class="button button-full button-large button-positive" ng-click="join()" >
         Play
     </button>
-
-    <div class="card">
-        <h3>User points: {{user.points}}</h3>
+    <div class="item item-divider">
+        Statistics
+    </div>
+    <div class="list card">
+        <a class="item item-icon-left">
+            <i class="icon ion-trophy royal"></i>
+            Rating: {{user.points}}
+        </a>
+        <a class="item item-icon-left">
+            <i class="icon ion-earth"></i>
+            Rank (worldwide): {{user.rank}}
+        </a>
+        <a class="item item-icon-left">
+            <i class="icon ion-android-people"></i>
+            Total games: {{user.totalgames}}
+        </a>    
+        <a class="item item-icon-left">
+            <i class="icon ion-ios-flame"></i>
+            Current winstreak: {{user.winstreak}}
+        </a>
+        <a class="item item-icon-left">
+            <i class="icon ion-podium"></i>
+            Win percentage: {{user.winpercentage}}%
+        </a>
     </div>
 
 </ion-view>

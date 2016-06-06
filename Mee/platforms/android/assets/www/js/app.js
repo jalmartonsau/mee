@@ -87,6 +87,10 @@ var User = {
     email: null,
     password: null,
     points: null,
+    totalgames: 2,
+    winpercentage: 10,
+    winstreak: 2,
+    rank:1,
     room: null,
     facebook: null,
     device: {
