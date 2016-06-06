@@ -44,7 +44,8 @@ angular.module('calculator', ['ionic', 'calculator.controllers', 'calculator.ser
         .state('tab', {
             url: "/tab",
             abstract: true,
-            templateUrl: "templates/tabs.html"
+            templateUrl: "templates/tabs.html",
+            controller: 'TabCtrl'
         })
         .state('login', {
             url: '/login',
@@ -136,6 +137,9 @@ var Game = {
         });
         Game.socket.on("ChangePointsResponse", function (response) {
             console.log(JSON.stringify(response));
+        });
+        Game.socket.on("OpponentLeft", function (response) {
+            Game.state.go('tab.main');
         });
 
     },
@@ -230,5 +234,9 @@ var Game = {
             Challenge: Game.challenge
         };
         Game.socket.emit("WinRequest", Data);
+    },
+    leaveRequest: function () {
+        Game.socket.emit("LeaveRequest", User);
+        User.room = null;
     }
 };
