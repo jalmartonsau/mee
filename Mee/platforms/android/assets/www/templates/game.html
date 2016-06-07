@@ -6,7 +6,7 @@
         <ion-content class="tab-content">
 
                 <div class="row">
-                    <input type="number" placeholder="Answer" value="{{uAnswer}}" disabled>
+                    <input type="text" placeholder="Answer" value="{{uAnswer}}" disabled>
                 </div>
                 <div class="row">
                     <button class="button button-positive col" ng-click="add(1)">1</button>
@@ -32,12 +32,12 @@
                     <button class="button button-block button-large button-positive" ng-click="submit()">Submit</button>
                 </div>
             <div class="item">
-                <h2>Rating (you): 1700</h2>
-                <p>Score: 1</p>
+                <h2>Rating (you): {{yourPoints}}</h2>
+                
             </div>
             <div class="item">
-                <h2>Rating (opponent): 1800 </h2>
-                <p>Score: 2</p>
+                <h2>Rating (opponent): {{opponentPoints}} </h2>
+                
             </div>      
 </ion-content>
 

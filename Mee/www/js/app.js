@@ -88,7 +88,7 @@ var User = {
     email: null,
     password: null,
     points: null,
-    totalgames: 2,
+    totalgames: null,
     winpercentage: 10,
     winstreak: 2,
     rank:null,
@@ -103,6 +103,11 @@ var User = {
 
 };
 
+var Settings = {
+    currentpassword: null,
+    newpassword: null,
+    renewpassword: null
+}
 
 var Game = {
     host: "http://tonsau.eu:45032",
@@ -128,7 +133,7 @@ var Game = {
             if (response.success) {
                 User.room = response.data;
 
-                if (Game.state != null)
+            if (Game.state != null)
                     Game.state.go('game');
             }
         });
@@ -149,6 +154,15 @@ var Game = {
         if (User.password == null) return;
 
         Game.socket.emit("AuthUserRequest", User);
+    },
+    updateUser: function (User) {
+
+        if (User.password == null) return;
+        if (User.password != Game.scope.settings.currentpassword) return;
+        if (Game.scope.settings.newpassword != Game.scope.settings.renewpassword) return;
+
+        User.password = Game.scope.settings.renewpassword;
+        Game.socket.emit("UpdateUserRequest", User);
     },
     authFbUser: function () { // loging in with fb
         facebookConnectPlugin.login(['email'],
@@ -179,7 +193,19 @@ var Game = {
             User.id = response.data.id;
             User.points = response.data.points;
             User.email = response.data.email;
-            User.rank = response.data.rank;
+            if (response.data.totalgames != null) {
+                User.totalgames = response.data.totalgames;
+            }
+            else {
+                User.totalgames = 0;
+            }
+            if (response.data.rank != null) {
+                User.rank = response.data.rank;
+            }
+            else {
+                User.rank = "n/a";
+            }
+            
             localStorage.setItem("user", JSON.stringify(User)); // Keep user in local storage.
             User.loggedIn = true;
 
