@@ -134,6 +134,7 @@ var Game = {
         });
         Game.socket.on("WinResponse", function (response) {
             console.log(JSON.stringify(response));
+
         });
         Game.socket.on("ChangePointsResponse", function (response) {
             console.log(JSON.stringify(response));
