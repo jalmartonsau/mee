@@ -12,22 +12,43 @@ angular.module('calculator.controllers', [])
 
 })
 .controller('SettingsCtrl', function ($scope, $state) {
-    $scope.user = User;
+    Game.scope = $scope;
+    $scope.changePassword = function () {
+        $scope.user = User;
+        Game.updateUser(User);
+    }
 })
 .controller('GameCtrl', function ($scope, $state) {
     Game.state = $state;
     Game.scope = $scope;
     $scope.uAnswer = "";
     $scope.room = User.room;
+    $scope.thisUser = User;
+
+    if ($scope.room.player1data.points == $scope.thisUser.points) {
+        $scope.yourPoints = $scope.room.player1data.points;
+        $scope.opponentPoints = $scope.room.player2data.points;
+    } else {
+        $scope.yourPoints = $scope.room.player2data.points;
+        $scope.opponentPoints = $scope.room.player1data.points;
+    }
+
     $scope.add = function (number) {
-        $scope.uAnswer += number.toString();
+        if (($scope.uAnswer == 0) && ($scope.uAnswer.length == 1)) {
+        } else {
+            $scope.uAnswer += number.toString();
+        }
     }
     $scope.del = function () {
         $scope.uAnswer = $scope.uAnswer.slice(0, -1);
     }
     $scope.neg = function () {
-        if($scope.uAnswer.length > 0)
+
+        if (($scope.uAnswer.length > 0) && ($scope.uAnswer.charAt(0) != "-") && ($scope.uAnswer > 0)) {
             $scope.uAnswer = parseInt($scope.uAnswer) * (-1);
+        } else if ($scope.uAnswer == "") {
+            $scope.uAnswer = ("-");
+        }
     }
     $scope.submit = function () {
         var userAnswer = parseInt($scope.uAnswer);
@@ -52,11 +73,11 @@ angular.module('calculator.controllers', [])
     $scope.data = {};
 
     Game.state = $state;
-    if (Game.socket == null) Game.init(); 
+    if (Game.socket == null) Game.init();
 
     $scope.loadUser = function () {
         var ruser = localStorage.getItem('user');
-            Game.signInFromMemory(JSON.parse(ruser));
+        Game.signInFromMemory(JSON.parse(ruser));
     }
 
     $scope.login = function () {
@@ -64,6 +85,7 @@ angular.module('calculator.controllers', [])
         User.password = $scope.data.password;
         Game.authUser(User); // Authenticates user
     }
+
     $scope.fblogin = function () {
         Game.authFbUser();
     }

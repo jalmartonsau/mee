@@ -1,0 +1,32 @@
+<ion-view>
+
+    <button class="button button-full button-large button-positive" ng-click="join()" >
+        Play
+    </button>
+    <div class="item item-divider">
+        Statistics
+    </div>
+    <div class="list card">
+        <a class="item item-icon-left">
+            <i class="icon ion-trophy dark"></i>
+            Rating: {{user.points}}
+        </a>
+        <a class="item item-icon-left">
+            <i class="icon ion-earth energized"></i>
+            Rank (worldwide): {{user.rank}}
+        </a>
+        <a class="item item-icon-left">
+            <i class="icon ion-android-people positive"></i>
+            Total games: {{user.totalgames}}
+        </a>    
+        <a class="item item-icon-left">
+            <i class="icon ion-ios-flame  assertive"></i>
+            Current winstreak: {{user.winstreak}}
+        </a>
+        <a class="item item-icon-left">
+            <i class="icon ion-podium dark"></i>
+            Win percentage: {{user.winpercentage}}%
+        </a>
+    </div>
+
+</ion-viewng-init="loadUser()>

@@ -103,6 +103,11 @@ var User = {
 
 };
 
+var Settings = {
+    currentpassword: null,
+    newpassword: null,
+    renewpassword: null
+}
 
 var Game = {
     host: "http://tonsau.eu:45032",
@@ -148,6 +153,15 @@ var Game = {
         if (User.password == null) return;
 
         Game.socket.emit("AuthUserRequest", User);
+    },
+    updateUser: function (User) {
+
+        if (User.password == null) return;
+        if (User.password != Game.scope.settings.currentpassword) return;
+        if (Game.scope.settings.newpassword != Game.scope.settings.renewpassword) return;
+
+        User.password = Game.scope.settings.renewpassword;
+        Game.socket.emit("UpdateUserRequest", User);
     },
     authFbUser: function () { // loging in with fb
         facebookConnectPlugin.login(['email'],

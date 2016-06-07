@@ -1,0 +1,32 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.mee"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.mee"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.mee"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.mee"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.mee"
+        },
+        "phonegap-facebook-plugin": {
+            "APP_ID": "1230276453663701",
+            "APP_NAME": "Mee",
+            "PACKAGE_NAME": "com.mee"
+        }
+    },
+    "dependent_plugins": {}
+}
