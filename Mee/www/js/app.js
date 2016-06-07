@@ -139,11 +139,19 @@ var Game = {
         });
         Game.socket.on("WinResponse", function (response) {
             console.log(JSON.stringify(response));
-            if (response != null && response.points != null) {
-                User.points = response.points;
-                Game.scope.yourPoints = response.points;
-                if (response.winner == User.id)
-                    Game.scope.opponentPoints -= 1;
+            if (response != null) {
+
+                if (response.winner == User.id) {
+                    User.points = response.points;
+                    Game.scope.yourPoints = response.points;
+                    Game.scope.opponentPoints = response.opponent;
+                } else {
+                    User.points = response.opponent;
+                    Game.scope.yourPoints = response.opponent;
+                    Game.scope.opponentPoints = response.points;
+                }
+                
+                    
             }
         });
         Game.socket.on("ChangePointsResponse", function (response) {
