@@ -45,7 +45,7 @@ angular.module('calculator.controllers', [])
     $scope.neg = function () {
 
         if (($scope.uAnswer.length > 0) && ($scope.uAnswer.charAt(0) != "-") && ($scope.uAnswer > 0)) {
-            $scope.uAnswer = parseInt($scope.uAnswer) * (-1);
+            $scope.uAnswer = "-" + parseInt($scope.uAnswer);
         } else if ($scope.uAnswer == "") {
             $scope.uAnswer = ("-");
         }

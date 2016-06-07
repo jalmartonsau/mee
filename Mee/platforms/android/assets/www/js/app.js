@@ -133,7 +133,7 @@ var Game = {
             if (response.success) {
                 User.room = response.data;
 
-                if (Game.state != null)
+            if (Game.state != null)
                     Game.state.go('game');
             }
         });

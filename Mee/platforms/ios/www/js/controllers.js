@@ -12,7 +12,11 @@ angular.module('calculator.controllers', [])
 
 })
 .controller('SettingsCtrl', function ($scope, $state) {
-    $scope.user = User;
+    Game.scope = $scope;
+    $scope.changePassword = function () {
+        $scope.user = User;
+        Game.updateUser(User);
+    }
 })
 .controller('GameCtrl', function ($scope, $state) {
     Game.state = $state;
@@ -81,6 +85,7 @@ angular.module('calculator.controllers', [])
         User.password = $scope.data.password;
         Game.authUser(User); // Authenticates user
     }
+
     $scope.fblogin = function () {
         Game.authFbUser();
     }
