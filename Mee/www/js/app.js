@@ -139,6 +139,12 @@ var Game = {
         });
         Game.socket.on("WinResponse", function (response) {
             console.log(JSON.stringify(response));
+            if (response != null && response.points != null) {
+                User.points = response.points;
+                Game.scope.yourPoints = response.points;
+                if (response.winner == User.id)
+                    Game.scope.opponentPoints -= 1;
+            }
         });
         Game.socket.on("ChangePointsResponse", function (response) {
             console.log(JSON.stringify(response));
