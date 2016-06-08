@@ -61,6 +61,7 @@ angular.module('calculator.controllers', [])
             $scope.uAnswer = "";
             Game.scope = $scope;
             Game.changePoints(-1);
+            $scope.user.yourPoints -= 1;
         }
     }
     $scope.$on('$stateChangeStart', function () {
